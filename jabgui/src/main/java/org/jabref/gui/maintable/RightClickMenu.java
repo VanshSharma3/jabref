@@ -74,7 +74,9 @@ public class RightClickMenu {
                 factory.createMenuItem(StandardActions.CUT, new EditAction(StandardActions.CUT, () -> libraryTab, stateManager, undoManager)),
                 factory.createMenuItem(StandardActions.MERGE_ENTRIES, new MergeEntriesAction(dialogService, stateManager, undoManager, preferences)),
                 factory.createMenuItem(StandardActions.DELETE_ENTRY, new EditAction(StandardActions.DELETE_ENTRY, () -> libraryTab, stateManager, undoManager)),
-
+                new MenuItem("Sort tabs alphabetically") {{
+                    setOnAction(event -> libraryTab.getLibraryTabContainer().sortTabsAlphabetically());
+                }},
                 new SeparatorMenuItem(),
 
                 createSendSubMenu(factory, dialogService, stateManager, preferences, entryTypesManager, taskExecutor),
@@ -247,5 +249,8 @@ public class RightClickMenu {
                 factory.createMenuItem(StandardActions.SEARCH_SHORTSCIENCE, new SearchShortScienceAction(dialogService, stateManager, preferences))
         );
         return searchMenu;
+    }
+    public LibraryTabContainer getLibraryTabContainer() {
+        return this.tabContainer;
     }
 }

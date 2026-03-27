@@ -32,4 +32,15 @@ public interface LibraryTabContainer {
 
     /// Refreshes the ui after changes to the preferences
     void refresh();
+    default void sortTabsAlphabetically() {
+        getLibraryTabs().sort((tab1, tab2) -> {
+            String title1 = tab1.getBibDatabaseContext().getDatabasePath()
+                    .map(path -> path.getFileName().toString())
+                    .orElse("Untitled");
+            String title2 = tab2.getBibDatabaseContext().getDatabasePath()
+                    .map(path -> path.getFileName().toString())
+                    .orElse("Untitled");
+            return title1.compareToIgnoreCase(title2);
+        });
+    }
 }
